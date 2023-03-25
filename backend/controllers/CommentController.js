@@ -1,58 +1,97 @@
-const Comment = require('../models/Comment');
+const Event = require('../models/Event');
 
 // add comment
-exports.addComment = async (req, res) => {
-  const { user, text, event } = req.body;
-
-  const comment = new Comment({
-    user,
-    text,
-    event
-  });
+const addComment = async (req, res) => {
+  const { eventId } = req.params;
+  const { author, text } = req.body;
 
   try {
-    const savedComment = await comment.save();
-    res.status(201).json({ success: true, comment: savedComment });
+    const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).json({ success: false, error: "Event not found" });
+    }
+
+    const newComment = { author, text };
+    event.comments.push(newComment);
+
+    const savedEvent = await event.save();
+    res.json({ success: true, event: savedEvent });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 };
 
 // get all comments by event id
-exports.getCommentsByEventId = async (req, res) => {
-    const { eventId } = req.body;
-  
-    try {
-      const comments = await Comment.find({ event: eventId }).populate('user');
-      res.status(200).json({ success: true, comments });
-    } catch (error) {
-      res.status(500).json({ success: false, error: error.message });
-    }
-  };
+const getCommentsByEventId = async (req, res) => {
+  const { eventId } = req.params;
 
-  // update comment by id with in 3 days
-exports.updateComment = async (req, res) => {
-    const { commentId } = req.body;
-    const { text } = req.body;
+  try {
+    const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).json({ success: false, error: "Event not found" });
+    }
 
-    try {    
-        const updatedComment = await Comment.findByIdAndUpdate(commentId, { text }, { new: true });
-        res.status(200).json({ success: true, comment: updatedComment });
+    res.json({ success: true, comments: event.comments });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+// update comment by id
+const updateComment = async (req, res) => {
+  const { eventId, commentId } = req.params;
+  const { author, text } = req.body;
+
+  try {
+    const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).json({ success: false, error: "Event not found" });
     }
-    catch (error) {
-        res.status(500).json({ success: false, error: error.message });
+
+    const comment = event.comments.find((c) => c._id.toString() === commentId);
+    if (!comment) {
+      return res.status(404).json({ success: false, error: "Comment not found" });
     }
+
+    comment.author = author || comment.author;
+    comment.text = text || comment.text;
+
+    const savedEvent = await event.save();
+    res.json({ success: true, event: savedEvent });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
 };
 
 // delete comment by id  
-    exports.deleteComment = async (req, res) => {
-    const { commentId } = req.body;
+const deleteComment = async (req, res) => {
+  const { eventId, commentId } = req.params;
 
-    try {
-        const deletedComment = await Comment.findByIdAndDelete(commentId);
-        res.status(200).json({ success: true, comment: deletedComment });
-        }
-    catch (error) {
-        res.status(500).json({ success: false, error: error.message });
+  try {
+    const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).json({ success: false, error: "Event not found" });
     }
+
+    const filteredComments = event.comments.filter((c) => c._id.toString() !== commentId);
+    if (event.comments.length === filteredComments.length) {
+      return res.status(404).json({ success: false, error: "Comment not found"
+      });
+    }
+
+    event.comments = filteredComments;
+    const savedEvent = await event.save();
+    res.json({ success: true, event: savedEvent });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+
+
+module.exports = {  
+  addComment,
+  getCommentsByEventId,
+  updateComment,
+  deleteComment
 };

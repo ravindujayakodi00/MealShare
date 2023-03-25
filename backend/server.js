@@ -21,11 +21,15 @@ app.get('/', (req, res) => {
 	res.json({ mssg: 'Hello World!' });
 });
 
+
 app.use(express.json());
-app.use((req, res, next) => {
-	console.log(req.path, req.method);
-	next();
-});
+app.use('/comments', require('./routes/commentRoutes'));
+app.use('/events', require('./routes/eventRoutes'));
+
+// app.use((req, res, next) => {
+// 	console.log(req.path, req.method);
+// 	next();
+// });
 
 mongoose.connection.on('error', (err) => {
 	console.log('error', err);

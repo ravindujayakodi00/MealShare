@@ -1,8 +1,9 @@
-const Comment = require("../models/Event");
+const Event = require("../models/Event");
+
 
 
 // add event
-exports.addEvent = async (req, res) => {
+ const addEvent = async (req, res) => {
   const {
     name,
     description,
@@ -35,7 +36,7 @@ exports.addEvent = async (req, res) => {
 };
 
 // get all events
-exports.getEvents = async (req, res) => {
+const getEvents = async (req, res) => {
    const { eventId } = req.body;
 
   try {
@@ -48,7 +49,7 @@ exports.getEvents = async (req, res) => {
 
 
 // get event by id
-exports.getEventById = async (req, res) => {
+const getEventById = async (req, res) => {
   const { eventId } = req.params;
 
   try {
@@ -59,7 +60,7 @@ exports.getEventById = async (req, res) => {
   }
 };
 //update event by id
-exports.updateEvent = async (req, res) => {
+const updateEvent = async (req, res) => {
   const { eventId } = req.params;
   const {
     name,
@@ -91,7 +92,7 @@ exports.updateEvent = async (req, res) => {
 };
 
 // delete event by id
-exports.deleteEvent = async (req, res) => {
+const deleteEvent = async (req, res) => {
   const { eventId } = req.params;
 
   try {
@@ -101,3 +102,12 @@ exports.deleteEvent = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 }
+
+module.exports = {
+  addEvent,
+  getEvents,
+  getEventById,
+  updateEvent,
+  deleteEvent,
+};
+

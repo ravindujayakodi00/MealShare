@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const CommentController = require('../controllers/CommentController');
 
-router.get('/', CommentController.getCommentsByEventId);
-router.post('/', CommentController.addComment);
-router.patch('/', CommentController.updateComment);
-router.delete('/', CommentController.deleteComment);
+router.route('/').get (CommentController.getCommentsByEventId);
+router.route('/').post (CommentController.addComment);
+router.route('/').patch (CommentController.updateComment);
+router.route('/').delete (CommentController.deleteComment);
 
 module.exports = router;
