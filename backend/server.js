@@ -24,7 +24,9 @@ app.get('/', (req, res) => {
 
 app.use(express.json());
 app.use('/comments', require('./routes/commentRoutes'));
+app.use('/commentAnalizer', require('./routes/commentAnalizerRoutes'));
 app.use('/events', require('./routes/eventRoutes'));
+app.use('/blogs', require('./routes/blogRoutes'));
 
 // app.use((req, res, next) => {
 // 	console.log(req.path, req.method);

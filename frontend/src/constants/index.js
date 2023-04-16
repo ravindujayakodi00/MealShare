@@ -66,6 +66,43 @@ export const commentsData = [
     }
   ];
 
+
+  export const blogs = [
+    {
+      id: 1,
+      title: 'The Benefits of Meditation',
+      author: 'John Doe',
+      content: 'Meditation has been shown to have numerous benefits for mental and physical health...',
+      images: [
+        'https://example.com/image1.jpg',
+        'https://example.com/image2.jpg',
+        'https://example.com/image3.jpg'
+      ]
+    },
+    {
+      id: 2,
+      title: 'Tips for Staying Productive While Working from Home',
+      author: 'Jane Smith',
+      content: 'With more and more people working from home, it can be a challenge to stay productive...',
+      images: [
+        'https://example.com/image4.jpg',
+        'https://example.com/image5.jpg'
+      ]
+    },
+    {
+      id: 3,
+      title: 'How to Build a Successful Online Business',
+      author: 'Mark Johnson',
+      content: 'Starting an online business can be a great way to work from home and achieve financial independence...',
+      images: [
+        'https://example.com/image6.jpg',
+        'https://example.com/image7.jpg',
+        'https://example.com/image8.jpg'
+      ]
+    }
+  ];
+  
+
   
 
     
