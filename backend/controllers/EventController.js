@@ -103,11 +103,28 @@ const deleteEvent = async (req, res) => {
   }
 }
 
+const searchEvents = async (req, res) => {
+  const { searchTerm } = req.params; // Use req.params to capture search term
+
+  try {
+    const events = await Event.find({
+      $or: [
+        { name: { $regex: searchTerm, $options: 'i' } }, // Case-insensitive regex search on name
+        { description: { $regex: searchTerm, $options: 'i' } }, // Case-insensitive regex search on description
+      ],
+    });
+    res.status(200).json({ success: true, events });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
 module.exports = {
   addEvent,
   getEvents,
   getEventById,
   updateEvent,
   deleteEvent,
+  searchEvents,
 };
 

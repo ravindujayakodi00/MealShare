@@ -31,10 +31,10 @@ export const commentsData = [
       },
   ];
 
-  export const eventData = [
+  export const events = [
     {
         id: 1,
-        image: "https://via.placeholder.com/150",
+        image: "https://example.com/images/tech-conference-2023.jpg",
         title: "Sample Event",
         location: "New York",
         date: "March 31, 2023",

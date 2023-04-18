@@ -11,6 +11,5 @@ const blogPostSchema = new Schema({
 });
 
 // Create model based on the defined schema
-const Blog = mongoose.model('Blog', blogPostSchema);
 
-module.exports = Blog;
+module.exports = mongoose.model('Blog', blogPostSchema);
