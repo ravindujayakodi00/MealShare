@@ -1,27 +1,36 @@
 import React from 'react';
 
-const BlogPostDetails = ({ images, title, author, content }) => {
+const BlogPost = ({ blogPosts }) => {
   return (
-    <div className="bg-white shadow overflow-hidden sm:rounded-lg flex">
-      <div className="w-1/3">
-        {images.map(image => (
-          <img src={image} alt={title} className="h-full w-full object-cover" key={image} />
-        ))}
-      </div>
-      <div className="w-2/3 p-4 flex flex-col justify-between">
-        <div>
-          <h3 className="text-lg leading-6 font-medium text-gray-900 mb-1">
-            {title}
-          </h3>
-          <p className="text-sm text-gray-500">By {author}</p>
+    <div className="grid grid-cols-2 gap-4 w-full"> {/* Modified */}
+      {blogPosts.map((blogPost, index) => (
+        <div
+          key={index}
+          className="bg-white shadow overflow-hidden sm:rounded-lg flex mb-4"
+        >
+          <div className="w-1/3 pr-4">
+            {blogPost.images.map((image) => (
+              <img
+                src={image}
+                alt={blogPost.title}
+                className="h-full w-full object-cover"
+                key={image}
+              />
+            ))}
+          </div>
+          <div className="w-2/3 p-4 flex flex-col justify-between">
+            <div>
+              <h3 className="text-lg leading-6 font-medium text-gray-900 mb-1">
+                {blogPost.title}
+              </h3>
+              <p className="text-sm text-gray-500">By {blogPost.author}</p>
+            </div>
+            <p className="mt-2 text-sm text-gray-500">{blogPost.content}</p>
+          </div>
         </div>
-        <p className="mt-2 text-sm text-gray-500">
-          {content}
-        </p>
-      </div>
+      ))}
     </div>
   );
 };
 
-export default BlogPostDetails;
-
+export default BlogPost;

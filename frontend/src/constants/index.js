@@ -99,6 +99,16 @@ export const commentsData = [
         'https://example.com/image7.jpg',
         'https://example.com/image8.jpg'
       ]
+    },{
+      id: 3,
+      title: 'How to Build a Successful Online Business',
+      author: 'Mark Johnson',
+      content: 'Starting an online business can be a great way to work from home and achieve financial independence...',
+      images: [
+        'https://example.com/image6.jpg',
+        'https://example.com/image7.jpg',
+        'https://example.com/image8.jpg'
+      ]
     }
   ];
   

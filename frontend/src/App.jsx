@@ -2,13 +2,20 @@ import React from 'react'
 import './index.css'
 import EndedEventDeatils from './components/endedEventDeatils'
 import SearchBar from './components/searchBar'
+import Comment from './components/comment'
 import EventDetails from './components/eventDetails'
-import { events } from './constants'
+import AddComment from './components/addComment'
+import { events,blogs,commentsData} from './constants'
+
+
 
 
 
 function App() {
   const endpoints = ['http://localhost:8000/events', 'http://localhost:8000/blogs'];
+  
+
+  
 
 
   
@@ -17,9 +24,9 @@ function App() {
 
     
     <div>
-    <SearchBar
-      endpoints={endpoints}
-    />
+     
+
+    
   </div>
   )
 }
