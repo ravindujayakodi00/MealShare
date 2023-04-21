@@ -1,3 +1,26 @@
+export const navLinks = [
+  {
+    id: "home",
+    title: "Home",
+  },
+  {
+    id: "about",
+    title: "About",
+  },
+  {
+    id: "community",
+    title: "Community",
+  },
+  {
+    id: "education",
+    title: "Education",
+  },
+  {
+    id: "contact",
+    title: "Contact",
+  },
+];
+
 export const commentsData = [
     {
       id: 1,
@@ -110,6 +133,24 @@ export const commentsData = [
         'https://example.com/image8.jpg'
       ]
     }
+  ];
+
+  export const stats = [
+    {
+      id: "stats-1",
+      title: "Donations",
+      value: "100+",
+    },
+    {
+      id: "stats-2",
+      title: "Requests",
+      value: "15+",
+    },
+    {
+      id: "stats-3",
+      title: "Partners",
+      value: "75+",
+    },
   ];
   
 
