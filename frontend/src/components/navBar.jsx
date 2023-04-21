@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { close, menu, Navbar0 } from "../assets";
+import { Close, Menu, Navbar0 } from "../assets";
 import { navLinks } from "../constants";
 
 const Navbar = () => {
@@ -72,7 +72,7 @@ const Navbar = () => {
         )}
 
         <img
-          src={toggle ? close : menu}
+          src={toggle ? Close : Menu}
           alt="menu"
           className="w-[28px] h-[40px] object-contain mb-8 "
           onClick={() => setToggle((prev) => !prev)}
