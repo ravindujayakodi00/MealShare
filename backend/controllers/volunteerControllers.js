@@ -1,10 +1,10 @@
 const Volunteer = require('../models/volunteer');
 
 // Create a new volunteer
-exports.createVolunteer = async (req, res) => {
+
+const createVolunteer = async (req, res) => {
   try {
-    const volunteer = new Volunteer(req.body);
-    await volunteer.save();
+    const volunteer = await Volunteer.create(req.body);
     res.status(201).json(volunteer);
   } catch (error) {
     console.error(error);
@@ -13,9 +13,9 @@ exports.createVolunteer = async (req, res) => {
 };
 
 // Get all volunteers
-exports.getAllVolunteers = async (req, res) => {
+const getAllVolunteers = async (req, res) => {
   try {
-    const volunteers = await Volunteer.find();
+    const volunteers = await find();
     res.status(200).json(volunteers);
   } catch (error) {
     console.error(error);
@@ -24,9 +24,9 @@ exports.getAllVolunteers = async (req, res) => {
 };
 
 // Get a volunteer by ID
-exports.getVolunteerById = async (req, res) => {
+const getVolunteerById = async (req, res) => {
   try {
-    const volunteer = await Volunteer.findById(req.params.id);
+    const volunteer = await findById(req.params.id);
     if (!volunteer) {
       return res.status(404).json({ error: 'Volunteer not found' });
     }
@@ -38,13 +38,11 @@ exports.getVolunteerById = async (req, res) => {
 };
 
 // Update a volunteer
-exports.updateVolunteer = async (req, res) => {
+const updateVolunteer = async (req, res) => {
   try {
-    const volunteer = await Volunteer.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
+    const volunteer = await findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
     if (!volunteer) {
       return res.status(404).json({ error: 'Volunteer not found' });
     }
@@ -56,9 +54,9 @@ exports.updateVolunteer = async (req, res) => {
 };
 
 // Delete a volunteer
-exports.deleteVolunteer = async (req, res) => {
+const deleteVolunteer = async (req, res) => {
   try {
-    const volunteer = await Volunteer.findByIdAndDelete(req.params.id);
+    const volunteer = await findByIdAndDelete(req.params.id);
     if (!volunteer) {
       return res.status(404).json({ error: 'Volunteer not found' });
     }
@@ -67,4 +65,11 @@ exports.deleteVolunteer = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Server Error' });
   }
+};
+module.export = {
+  deleteVolunteer,
+  updateVolunteer,
+  getAllVolunteers,
+  getVolunteerById,
+  createVolunteer,
 };

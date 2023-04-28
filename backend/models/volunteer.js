@@ -11,8 +11,8 @@ const volunteerSchema = new mongoose.Schema({
   },
   email: { type: String, required: true, unique: true },
 
-  phone: { type: String, required: true },
-  skills: [{ type: String }],
+  phoneNo: { type: String, required: true },
+  skills: { type: String },
   availability: { type: String },
   interests: [{ type: String }],
   createdAt: { type: Date, default: Date.now },

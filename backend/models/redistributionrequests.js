@@ -1,22 +1,29 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 const redistributionSchema = new mongoose.Schema(
   {
-    requester: {
+    donor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
       required: true,
+      ref: 'Donor',
     },
-    foodType: { type: String, required: true },
-    quantity: { type: Number, required: true },
-    deliveryLocation: { type: String, required: true },
-    deliveryTime: { type: Date, required: true },
-    status: {
-      type: String,
-      enum: ['pending', 'matched', 'completed'],
-      default: 'pending',
+    donation: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'Donation',
     },
-    matchedDonation: { type: mongoose.Schema.Types.ObjectId, ref: 'Donation' },
+    volunteer: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'Volunteer',
+    },
+    request: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'Request',
+    },
   },
   { timestamps: true }
 );
-export default mongoose.model('RedistributionRequests', redistributionSchema);
+
+const Redistribution = mongoose.model('Redistribution', redistributionSchema);
+module.exports = Redistribution;
