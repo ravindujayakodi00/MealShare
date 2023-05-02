@@ -1,9 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const {
-  default: redistributionrequests,
-} = require('./models/redistributionrequests.js');
+
 require('dotenv').config();
 const app = express();
 
@@ -17,16 +15,21 @@ mongoose
   .then(() => console.log('MongoDB Connected...'))
   .catch((err) => console.log(err));
 
-const VolunteerRouter = require('./routes/volunteerRoute.js');
-// const RedistributionRequestRouter = require('./routes/redistributionrequestsRt');
 // routes
 app.get('/', (req, res) => {
   res.json({ mssg: 'Hello World!' });
 });
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173'); // Replace with the origin of your client application
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 
 app.use(express.json());
-app.use('/volunteers', volunteer);
-// app.use('redistributionrequests', redistributionrequests);
+app.use('/volunteer', require('./routes/volunteerRoutes'));
+app.use('/redistribution', require('./routes/redistributionRoutes'));
+
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();

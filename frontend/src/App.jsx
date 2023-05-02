@@ -2,7 +2,8 @@ function App() {
   return (
     <Router>
       <Switch>
-        {/* <Route path="/" exact>
+        {
+        <Route path="/"></Route>/* <Route path="/" exact>
           <Home />
         </Route>
         <Route path="/about">

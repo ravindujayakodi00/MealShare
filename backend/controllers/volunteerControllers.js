@@ -1,32 +1,19 @@
 const Volunteer = require('../models/volunteer');
 
-// Create a new volunteer
-
-const createVolunteer = async (req, res) => {
-  try {
-    const volunteer = await Volunteer.create(req.body);
-    res.status(201).json(volunteer);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Server Error' });
-  }
-};
-
-// Get all volunteers
+//get all volunteers
 const getAllVolunteers = async (req, res) => {
   try {
-    const volunteers = await find();
+    const volunteers = await Volunteer.find();
     res.status(200).json(volunteers);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Server Error' });
   }
 };
-
-// Get a volunteer by ID
+//get a volunteer by id
 const getVolunteerById = async (req, res) => {
   try {
-    const volunteer = await findById(req.params.id);
+    const volunteer = await Volunteer.findById(req.params.id);
     if (!volunteer) {
       return res.status(404).json({ error: 'Volunteer not found' });
     }
@@ -36,16 +23,56 @@ const getVolunteerById = async (req, res) => {
     res.status(500).json({ error: 'Server Error' });
   }
 };
+//create a new volunteer
+const createVolunteer = async (req, res) => {
+  const volunteer = new Volunteer({
+    fname: req.body.fname,
+    lname: req.body.lname,
+    email: req.body.email,
+    phoneNo: req.body.phoneNo,
+    skills: req.body.skills,
+    availability: req.body.availability,
+    interests: req.body.interests,
+  });
+  try {
+    const newVolunteer = await Volunteer.create(req.body);
+    res.status(201).json(newVolunteer);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server Error' });
+  }
+};
 
-// Update a volunteer
+//update a volunteer
 const updateVolunteer = async (req, res) => {
   try {
-    const volunteer = await findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const volunteer = await Volunteer.findById(req.params.id);
     if (!volunteer) {
       return res.status(404).json({ error: 'Volunteer not found' });
     }
+    if (req.body.fname) {
+      volunteer.fname = req.body.fname;
+    }
+    if (req.body.lname) {
+      volunteer.lname = req.body.lname;
+    }
+    if (req.body.email) {
+      volunteer.email = req.body.email;
+    }
+    if (req.body.phoneNo) {
+      volunteer.phoneNo = req.body.phoneNo;
+    }
+    if (req.body.skills) {
+      volunteer.skills = req.body.skills;
+    }
+    if (req.body.availability) {
+      volunteer.availability = req.body.availability;
+    }
+    if (req.body.interests) {
+      volunteer.interests = req.body.interests;
+    }
+    volunteer.updatedAt = Date.now();
+    await volunteer.save();
     res.status(200).json(volunteer);
   } catch (error) {
     console.error(error);
@@ -53,23 +80,24 @@ const updateVolunteer = async (req, res) => {
   }
 };
 
-// Delete a volunteer
+//delete a volunteer
 const deleteVolunteer = async (req, res) => {
   try {
-    const volunteer = await findByIdAndDelete(req.params.id);
+    const volunteer = await Volunteer.findById(req.params.id);
     if (!volunteer) {
       return res.status(404).json({ error: 'Volunteer not found' });
     }
+    await volunteer.remove();
     res.status(200).json({ message: 'Volunteer deleted successfully' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Server Error' });
   }
 };
-module.export = {
+module.exports = {
   deleteVolunteer,
   updateVolunteer,
-  getAllVolunteers,
-  getVolunteerById,
   createVolunteer,
+  getVolunteerById,
+  getAllVolunteers,
 };
