@@ -30,9 +30,7 @@ const createVolunteer = async (req, res) => {
     lname: req.body.lname,
     email: req.body.email,
     phoneNo: req.body.phoneNo,
-    skills: req.body.skills,
     availability: req.body.availability,
-    interests: req.body.interests,
   });
   try {
     const newVolunteer = await Volunteer.create(req.body);
@@ -62,15 +60,11 @@ const updateVolunteer = async (req, res) => {
     if (req.body.phoneNo) {
       volunteer.phoneNo = req.body.phoneNo;
     }
-    if (req.body.skills) {
-      volunteer.skills = req.body.skills;
-    }
+
     if (req.body.availability) {
       volunteer.availability = req.body.availability;
     }
-    if (req.body.interests) {
-      volunteer.interests = req.body.interests;
-    }
+
     volunteer.updatedAt = Date.now();
     await volunteer.save();
     res.status(200).json(volunteer);

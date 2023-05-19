@@ -1,19 +1,19 @@
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import VolunteerPage from './pages/VolunteerPage';
+import RedistributionPage from './pages/RedistributionPage';
+
 function App() {
   return (
-    <Router>
-      <Switch>
-        {
-        <Route path="/"></Route>/* <Route path="/" exact>
-          <Home />
-        </Route>
-        <Route path="/about">
-          <About />
-        </Route>
-        <Route path="/contact">
-          <Contact />
-        </Route> */}
-      </Switch>
-    </Router>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/volunteer" element={<VolunteerPage />} />
+        <Route
+          path="/redistributionrequests"
+          element={<RedistributionPage />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
