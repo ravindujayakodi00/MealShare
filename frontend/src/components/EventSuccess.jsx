@@ -1,5 +1,6 @@
 import React from "react";
-import { Pie } from "react-chartjs-2";
+import 'chart.js/auto';
+import { Doughnut } from "react-chartjs-2";
 import "tailwindcss/tailwind.css";
 
 function EventSuccess({ successPercentage }) {
@@ -20,10 +21,9 @@ function EventSuccess({ successPercentage }) {
         Event Success Percentage: {successPercentage}%
       </h1>
       <div className="w-1/2">
-        <Pie data={data} />
+        <Doughnut data={data} />
       </div>
     </div>
   );
 }
-
 export default EventSuccess;

@@ -2,7 +2,7 @@ import React from 'react';
 
 const BlogPost = ({ blogPosts }) => {
   return (
-    <div className="grid grid-cols-2 gap-4 w-full"> {/* Modified */}
+    <div className=""> 
       {blogPosts.map((blogPost, index) => (
         <div
           key={index}
