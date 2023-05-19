@@ -26,14 +26,23 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.json());
-app.use('/volunteer', require('./routes/volunteerRoutes'));
-app.use('/redistribution', require('./routes/redistributionRoutes'));
-
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
+
+app.use(express.json());
+app.use('/comments', require('./routes/commentRoutes'));
+app.use('/commentAnalizer', require('./routes/commentAnalizerRoutes'));
+app.use('/events', require('./routes/eventRoutes'));
+app.use('/blogs', require('./routes/blogRoutes'));
+app.use('/volunteer', require('./routes/volunteerRoutes'));
+app.use('/redistribution', require('./routes/redistributionRoutes'));
+
+// app.use((req, res, next) => {
+// 	console.log(req.path, req.method);
+// 	next();
+// });
 
 mongoose.connection.on('error', (err) => {
   console.log('error', err);

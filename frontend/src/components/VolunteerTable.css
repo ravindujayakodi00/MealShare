@@ -1,66 +1,69 @@
-.container {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.text-2xl {
+.form-title {
   font-size: 1.5rem;
-}
-
-.font-bold {
   font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.mb-4 {
-  margin-bottom: 1rem;
+.form-field {
+  margin-bottom: 20px;
 }
 
-.w-full {
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input,
+select {
   width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.border {
-  border: 1px solid #ddd;
+button {
+  width: 100%;
+  background-color: #79c265;
+  color: #010602;
+  font-weight: bold;
+  padding: 10px;
+  border: solid 1px #0d3302;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.bg-blue-500 {
-  background-color: #3b82f6;
+button:hover {
+  background-color: #257618;
+}
+.button-submit {
+  width: 150px;
+  background-color: #79c265;
+  color: #010602;
+  font-weight: bold;
+  padding: 10px;
+  border: solid 1px #0d3302;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.button-card {
+  display: flex;
+  justify-content: space-between;
+}
+.button-allrecords {
+  width: 150px;
+  background-color: #79c265;
+  color: #010602;
+  font-weight: bold;
+  padding: 10px;
+  border: solid 1px #0d3302;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.bg-blue-700 {
-  background-color: #2563eb;
-}
-
-.text-white {
-  color: #fff;
-}
-
-.hover\:bg-blue-700:hover {
-  background-color: #2563eb;
-}
-
-.bg-red-500 {
-  background-color: #ef4444;
-}
-
-.bg-red-700 {
-  background-color: #dc2626;
-}
-
-.py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-.rounded {
-  border-radius: 0.25rem;
-}
-
-.mr-2 {
-  margin-right: 0.5rem;
+.Table-header {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  align-content: center;
 }

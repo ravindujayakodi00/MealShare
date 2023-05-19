@@ -1,156 +1,145 @@
-import React, { useEffect, useState } from 'react';
-import './VolunteerForm.css';
-import axios from 'axios';
+import React, { useState } from 'react';
 
-const VolunteerForm = () => {
-  //table data
-  const [tableData, setTableData] = useState('');
+const VolunteerForm = ({ addVolunteer }) => {
+  const [formData, setFormData] = useState({
+    fname: '',
+    lname: '',
+    email: '',
+    phoneNo: '',
+    availability: [],
+  });
 
-  //Variable Data
-  const [fname, setFname] = useState('');
-  const [lname, setLname] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNo, setPhoneNo] = useState('');
-  const [availability, setAvailability] = useState('');
-
-  //validations
-  const [fnameValidations, setFnameValidations] = useState('');
-  const [lnameValidations, setLnameValidations] = useState('');
-  const [emailValidations, setEmailValidations] = useState('');
-  const [phoneNoValidations, setPhoneNoValidations] = useState('');
-  const [availabilityValidations, setAvailabilityValidations] = useState('');
-
-  //Get details
-  const getAllData = () => {
-    axios.get('http://localhost:8000/volunteer').then((response) => {
-      setTableData(response.data);
-    });
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  //save User
-  const saveVolunteer = () => {
-    const model = {
-      fname: fname,
-      lname: lname,
-      email: email,
-      phoneNo: phoneNo,
-      availability: availability,
-    };
-    setFnameValidations('');
-    setLnameValidations('');
-    setEmailValidations('');
-    setPhoneNoValidations('');
-    setAvailabilityValidations('');
-    if (fname === '') {
-      setFnameValidations('First Name is required');
-    } else if (lname === '') {
-      setLnameValidations('Last Name is required');
-    } else if (email === '') {
-      setEmailValidations('Email is required');
-    } else if (phoneNo === '') {
-      setPhoneNoValidations('Phone Number is required');
-    } else if (availability === '') {
-      setAvailabilityValidations('Availability is required');
+
+  const handleCheckboxChange = (e) => {
+    const { value, checked } = e.target;
+    let updatedAvailability = [...formData.availability];
+
+    if (checked) {
+      updatedAvailability.push(value);
     } else {
-      axios.post('http://localhost:8000/volunteer', model).then((response) => {
-        console.log(response);
-        if (response.data.status === 'success') {
-          setFname('');
-          setLname('');
-          setEmail('');
-          setPhoneNo('');
-          setAvailability('');
-          getAllData();
-        }
-      });
+      updatedAvailability = updatedAvailability.filter(
+        (item) => item !== value
+      );
     }
+
+    setFormData({ ...formData, availability: updatedAvailability });
   };
-
-  //Delete Volunteer
-  const deleteVolunteer = (id) => {
-    axios.delete('http://localhost:8000/volunteer/:id').then((response) => {
-      console.log(response);
-      getAllData();
-    });
-  };
-
-  //form load
-  useEffect(() => {
-    if (!tableData) {
-      getAllData();
-    }
-  }, []);
-
-  //form submit
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Perform form submission logic
-    // You can make an API request here to save the volunteer information
-
-    // Reset form fields
-    setFname('');
-    setLname('');
-    setEmail('');
-    setPhoneNo('');
-    setAvailability('');
+    addVolunteer(formData);
+    setFormData({
+      fname: '',
+      lname: '',
+      email: '',
+      phoneNo: '',
+      availability: [],
+    });
   };
 
   return (
-    <form className="volunteer-form" onSubmit={handleSubmit}>
-      <h2 className="form-title">Become a Volunteer</h2>
-      <div className="form-field">
-        <label htmlFor="fname"> First Name</label>
-        <input
-          type="text"
-          id="fname"
-          value={fname}
-          onChange={(e) => setFname(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-field">
-        <label htmlFor="lname"> Last Name</label>
-        <input
-          type="text"
-          id="lname"
-          value={lname}
-          onChange={(e) => setLname(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-field">
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-field">
-        <label htmlFor="phoneNo">Phone</label>
-        <input
-          type="tel"
-          id="phoneNo"
-          value={phoneNo}
-          onChange={(e) => setPhoneNo(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-field">
-        <label htmlFor="availability">Availability</label>
-        <textarea
-          id="availability"
-          rows="3"
-          value={availability}
-          onChange={(e) => setAvailability(e.target.value)}
-          required
-        ></textarea>
-      </div>
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <h2>Register Volunteer</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>First Name:</label>
+          <input
+            type="text"
+            name="fname"
+            value={formData.fname}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Last Name:</label>
+          <input
+            type="text"
+            name="lname"
+            value={formData.lname}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Phone No:</label>
+          <input
+            type="text"
+            name="phoneNo"
+            value={formData.phoneNo}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Availability:</label>
+          <div>
+            <input
+              type="checkbox"
+              name="availability"
+              value="Monday"
+              checked={formData.availability.includes('Monday')}
+              onChange={handleCheckboxChange}
+            />
+            <label>Monday</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name="availability"
+              value="Tuesday"
+              checked={formData.availability.includes('Tuesday')}
+              onChange={handleCheckboxChange}
+            />
+            <label>Tuesday</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name="availability"
+              value="Wednesday"
+              checked={formData.availability.includes('Wednesday')}
+              onChange={handleCheckboxChange}
+            />
+            <label>Wednesday</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name="availability"
+              value="Thursday"
+              checked={formData.availability.includes('Thursday')}
+              onChange={handleCheckboxChange}
+            />
+            <label>Thursday</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name="availability"
+              value="Friday"
+              checked={formData.availability.includes('Friday')}
+              onChange={handleCheckboxChange}
+            />
+            <label>Friday</label>
+          </div>
+        </div>
+        <button type="submit">Register</button>
+      </form>
+    </div>
   );
 };
 

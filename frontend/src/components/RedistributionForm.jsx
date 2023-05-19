@@ -1,28 +1,61 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 import './RedistributionForm.css';
 
-const RedistributionForm = () => {
+const RedistributionForm = ({ onFormSubmit }) => {
+  const [donor, setDonor] = useState('');
   const [donation, setDonation] = useState('');
   const [request, setRequest] = useState('');
   const [volunteer, setVolunteer] = useState('');
   const [status, setStatus] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Perform form submission logic
-    // You can make an API request here to save the redistribution request information
+    const formData = {
+      donor,
+      donation,
+      request,
+      volunteer,
+      status,
+    };
 
-    // Reset form fields
-    setDonation('');
-    setRequest('');
-    setVolunteer('');
-    setStatus('');
+    try {
+      // Make a POST request to the backend endpoint
+      const response = await axios.post(
+        'http://localhost:8000/redistribution',
+        formData
+      );
+
+      // Call the onFormSubmit function with the form data and the response from the server
+      onFormSubmit(formData, response.data);
+
+      // Reset form fields
+      setDonor('');
+      setDonation('');
+      setRequest('');
+      setVolunteer('');
+      setStatus('');
+    } catch (error) {
+      // Handle error
+      console.error('Error submitting form:', error);
+    }
   };
 
   return (
     <form className="redistribution-form" onSubmit={handleSubmit}>
       <h2 className="form-title">Redistribution Request</h2>
+      <div className="form-field">
+        <label htmlFor="donor">Donor</label>
+        <input
+          type="text"
+          id="donor"
+          value={donor}
+          onChange={(e) => setDonor(e.target.value)}
+          required
+        />
+      </div>
       <div className="form-field">
         <label htmlFor="donation">Donation Request</label>
         <input
@@ -43,7 +76,6 @@ const RedistributionForm = () => {
           required
         />
       </div>
-
       <div className="form-field">
         <label htmlFor="volunteer">Volunteer</label>
         <input
@@ -68,7 +100,15 @@ const RedistributionForm = () => {
           <option value="completed">Completed</option>
         </select>
       </div>
-      <button type="submit">Submit</button>
+      <div className="button-card">
+        <button className="button-submit" type="submit">
+          Submit
+        </button>
+        <br />
+        <Link to="RedistributionTable">
+          <button className="button-allrecords">All Records</button>
+        </Link>
+      </div>
     </form>
   );
 };

@@ -16,4 +16,5 @@ router.put('/:id', volunteerController.updateVolunteer);
 
 //Delete a volunteer
 router.delete('/:id', volunteerController.deleteVolunteer);
+
 module.exports = router;

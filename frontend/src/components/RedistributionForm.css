@@ -1,10 +1,11 @@
 /* RedistributionForm.css */
 
 .redistribution-form {
+  margin-top: 50px;
   max-width: 400px;
-  margin: auto;
   padding: 20px;
   background-color: #fff;
+  margin-left: 400px;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -35,15 +36,39 @@ select {
 
 button {
   width: 100%;
-  background-color: #007bff;
-  color: #fff;
+  background-color: #79c265;
+  color: #010602;
   font-weight: bold;
   padding: 10px;
-  border: none;
+  border: solid 1px #0d3302;
   border-radius: 4px;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #257618;
+}
+.button-submit {
+  width: 150px;
+  background-color: #79c265;
+  color: #010602;
+  font-weight: bold;
+  padding: 10px;
+  border: solid 1px #0d3302;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.button-card {
+  display: flex;
+  justify-content: space-between;
+}
+.button-allrecords {
+  width: 150px;
+  background-color: #79c265;
+  color: #010602;
+  font-weight: bold;
+  padding: 10px;
+  border: solid 1px #0d3302;
+  border-radius: 4px;
+  cursor: pointer;
 }

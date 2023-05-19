@@ -1,7 +1,8 @@
 import React from 'react';
 import RedistributionForm from '../components/RedistributionForm';
+import AdminPage from './Admin';
 
-function RedistributionRequestPage() {
+function Redistribution() {
   return (
     <div>
       <RedistributionForm />
@@ -9,4 +10,4 @@ function RedistributionRequestPage() {
   );
 }
 
-export default RedistributionRequestPage;
+export default Redistribution;
