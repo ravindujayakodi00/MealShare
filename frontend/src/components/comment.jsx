@@ -3,9 +3,9 @@ import React from 'react';
 const Comment = ({ comments }) => {
   return (
     <div>
-      {comments.map((comment, index) => (
+      {comments.map((comment) => (
         <div
-          key={index}
+          key={comment.id} // Use a unique identifier (e.g., comment.id) as the key
           className="bg-white shadow overflow-hidden sm:rounded-lg mb-4 p-4"
         >
           <div className="flex items-center">
