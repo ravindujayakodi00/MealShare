@@ -34,7 +34,12 @@ app.use('/comments', require('./routes/commentRoutes'));
 app.use('/commentAnalizer', require('./routes/commentAnalizerRoutes'));
 app.use('/events', require('./routes/eventRoutes'));
 app.use('/blogs', require('./routes/blogRoutes'));
-
+app.use('/business', require('./routes/business'));
+app.use('/donors', require('./routes/donors'));
+app.use('/requests', require('./routes/request'));
+app.use('/stocks', require('./routes/stocks'));
+app.use('/users', require('./routes/users'));
+app.use('/api/posts', require('./routes/post'));
 // app.use((req, res, next) => {
 // 	console.log(req.path, req.method);
 // 	next();
