@@ -33,7 +33,7 @@ function AdminPage() {
               <Link to="/Admin/events" className="w-full pl-4 border-b border-white py-3 hover:bg-gray-700 mb-2 flex items-center">
                 <FaCalendarAlt className="inline-block mr-2" /> Event Management
               </Link>
-              <Link to="/Admin/donors-management" className="w-full pl-4 border-b border-white py-3 hover:bg-gray-700 mb-2 flex items-center">
+              <Link to="/admin/donor" className="w-full pl-4 border-b border-white py-3 hover:bg-gray-700 mb-2 flex items-center">
                 <FaShoppingCart className="inline-block mr-2" /> Donors Management
               </Link>
               <Link to="/Admin/request-management" className="w-full pl-4 border-b border-white py-3 hover:bg-gray-700 mb-2 flex items-center">
