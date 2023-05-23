@@ -21,11 +21,24 @@ app.get('/', (req, res) => {
 	res.json({ mssg: 'Hello World!' });
 });
 
-app.use(express.json());
 app.use((req, res, next) => {
-	console.log(req.path, req.method);
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173'); // Replace with the origin of your client application
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+	res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 	next();
-});
+  });
+
+
+app.use(express.json());
+app.use('/comments', require('./routes/commentRoutes'));
+app.use('/commentAnalizer', require('./routes/commentAnalizerRoutes'));
+app.use('/events', require('./routes/eventRoutes'));
+app.use('/blogs', require('./routes/blogRoutes'));
+
+// app.use((req, res, next) => {
+// 	console.log(req.path, req.method);
+// 	next();
+// });
 
 mongoose.connection.on('error', (err) => {
 	console.log('error', err);
