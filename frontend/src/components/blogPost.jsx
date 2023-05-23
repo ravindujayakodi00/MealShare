@@ -2,10 +2,10 @@ import React from 'react';
 
 const BlogPost = ({ blogPosts }) => {
   return (
-    <div className=""> 
-      {blogPosts.map((blogPost, index) => (
+    <div className="pt-5"> 
+      {blogPosts.map((blogPost) => (
         <div
-          key={index}
+          key={blogPost.id} // Add the key prop here using a unique identifier
           className="bg-white shadow overflow-hidden sm:rounded-lg flex mb-4"
         >
           <div className="w-1/3 pr-4">

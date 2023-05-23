@@ -15,15 +15,21 @@ function EventSuccess({ successPercentage }) {
     ],
   };
 
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+  };
+
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-4xl font-bold mt-8 mb-4">
+      <h1 className="font-bold mt-8 mb-4">
         Event Success Percentage: {successPercentage}%
       </h1>
-      <div className="w-1/2">
-        <Doughnut data={data} />
+      <div className="w-28 h-28">
+        <Doughnut data={data} options={chartOptions} />
       </div>
     </div>
   );
 }
+
 export default EventSuccess;

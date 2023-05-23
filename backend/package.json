@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server",
+    "start": "nodemon server",
     "dev": "nodemon server"
   },
   "keywords": [],
@@ -21,6 +21,8 @@
     "mongoose": "^7.0.3",
     "morgan": "^1.10.0",
     "path": "^0.12.7",
-    "sentiment": "^5.0.2"
+    "sentiment": "^5.0.2",
+    "validator": "^13.9.0"
+
   }
 }

@@ -14,6 +14,7 @@ export const navLinks = [
   {
     id: "education",
     title: "Education",
+    path: "/Education",
   },
   {
     id: "contact",
@@ -152,6 +153,15 @@ export const commentsData = [
       value: "75+",
     },
   ];
+
+  export const event = {
+        id: 4,
+        title: "Art Exhibition 2023",
+        location: "New York City",
+        date: "11/01/2023",
+        description: "Discover the latest works of contemporary art at the Art Exhibition 2023. Featuring over 100 artists from around the world, this is an event that art lovers won't want to miss.",
+        image: "https://example.com/images/art-exhibition-2023.jpg"
+  }
   
 
   

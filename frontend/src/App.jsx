@@ -1,29 +1,55 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HomePage from './pages/home';
-import AdminPage from './pages/Admin';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import { useAuthContext } from "./hooks/useAuthContext";
+import HomePage from "./pages/home";
+import AdminPage from "./pages/Admin";
+import EducationPage from "./pages/Education";
+import SelectType from "./pages/Donors/SelectType";
+import PersonalDetails from "./pages/Donors/Personal";
+import BusinessDetails from "./pages/Donors/Business";
+import SelectItems from "./pages/Donors/SelectItems";
+import DonorAdmin from "./pages/AdminPanel/DonorsAdmin";
+import BusinessDonorAdmin from "./pages/AdminPanel/BusinessDonerAdmin";
+import UpdateForm from "./components/UpdateForm";
+import Login from "./pages/AuthPages/Login";
+import Signup from "./pages/AuthPages/SignUp";
+import Community from "./pages/CommunityForum/CommunityForum";
+import UpdatePost from "./pages/CommunityForum/UpdatePost";
 
-import './index.css';
-import Redistribution from './pages/Redistribution';
-import RedistributionTable from './components/RedistributionTable';
-import Volunteers from './pages/Volunteers';
+import "./index.css";
 
 function App() {
+  const { user } = useAuthContext();
+
   return (
     <Router>
-      <div className="App">
+      <div className="App bg-gradient-to-r from-green-500 via-green-300 to-yellow-300 w-full overflow-hidden ">
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/Admin/*" element={<AdminPage />} />
           <Route
-            path="/Admin/distribute-management"
-            element={<Redistribution />}
+            path="/signup"
+            element={!user ? <Signup /> : <Navigate to="/" />}
           />
           <Route
-            path="/Admin/distribute-management/RedistributionTable"
-            element={<RedistributionTable />}
+            path="/login"
+            element={!user ? <Login /> : <Navigate to="/" />}
           />
-          <Route path="/Admin/volunteer-management" element={<Volunteers />} />
+          <Route path="/" element={user ? <HomePage /> : <Navigate to="/login" />} />
+          <Route path="/Admin/*" element={<AdminPage /> } />
+          <Route path="/Education" element={user ? <EducationPage /> : <Navigate to="/login" />} />
+          <Route path="/admin/donor" element={<DonorAdmin />} />
+          <Route path="/admin/business" element={<BusinessDonorAdmin />} />
+          <Route path="/donors" element={<SelectType />} />
+          <Route path="/donors/personal" element={<PersonalDetails />} />
+          <Route path="/donors/business" element={<BusinessDetails />} />
+          <Route path="/donors/selectitems" element={<SelectItems />} />
+          <Route path="/admin/donor/:id" element={<UpdateForm />} />
+          <Route path="/community" element={<Community />} />
+          <Route path="/update/:id" element={<UpdatePost />} />
         </Routes>
       </div>
     </Router>
