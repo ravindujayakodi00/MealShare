@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const redistributionSchema = new mongoose.Schema(
   {
     donor: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: true,
       ref: 'Donor',
     },
@@ -20,6 +20,16 @@ const redistributionSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'Request',
+    },
+    location: {
+      type: String,
+      required: true,
+      ref: 'Location',
+    },
+    status: {
+      type: String,
+      required: true,
+      default: 'Pending',
     },
   },
   { timestamps: true }

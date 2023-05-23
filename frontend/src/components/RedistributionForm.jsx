@@ -9,6 +9,7 @@ const RedistributionForm = ({ onFormSubmit }) => {
   const [request, setRequest] = useState('');
   const [volunteer, setVolunteer] = useState('');
   const [status, setStatus] = useState('');
+  const [location, setLocation] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +19,7 @@ const RedistributionForm = ({ onFormSubmit }) => {
       donation,
       request,
       volunteer,
+      location,
       status,
     };
 
@@ -37,6 +39,7 @@ const RedistributionForm = ({ onFormSubmit }) => {
       setRequest('');
       setVolunteer('');
       setStatus('');
+      setLocation('');
     } catch (error) {
       // Handle error
       console.error('Error submitting form:', error);
@@ -83,6 +86,14 @@ const RedistributionForm = ({ onFormSubmit }) => {
           id="volunteer"
           value={volunteer}
           onChange={(e) => setVolunteer(e.target.value)}
+          required
+        />
+      </div>
+      <div className="form-field">
+        <label htmlFor="location">Location</label>
+        <input
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
           required
         />
       </div>

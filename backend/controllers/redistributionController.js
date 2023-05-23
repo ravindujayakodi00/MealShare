@@ -34,6 +34,8 @@ const createRedistributionRequest = async (req, res) => {
     donation: req.body.donation,
     volunteer: req.body.volunteer,
     request: req.body.request,
+    location: req.body.location,
+    status: req.body.status,
   });
   try {
     const redistributionRequest = await Redistribution.create(req.body);
@@ -67,6 +69,13 @@ const updateRedistributionRequest = async (req, res) => {
     if (req.body.request) {
       redistribution.request = req.body.request;
     }
+    if (req.body.location) {
+      redistribution.location = req.body.location;
+    }
+    if (req.body.status) {
+      redistribution.status = req.body.status;
+    }
+
     const updateRedistributionRequest = await redistribution.save();
     res.json(updateRedistributionRequest);
   } catch (error) {

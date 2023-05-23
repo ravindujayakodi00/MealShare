@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './redistributionTable.css';
 
-const RedistributionTable = ({ data, onUpdate, onDelete }) => {
+const RedistributionTable = ({ onUpdate, onDelete }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const fetchData = async () => {
+    try {
+      // Make a GET request to fetch the data
+      const response = await axios.get('http://localhost:8000/redistribution/');
+      // Set the data
+      setData(response.data);
+    } catch (error) {
+      // Handle the error
+      console.error(error);
+    }
+  };
+
   const handleUpdate = async (item) => {
     try {
       // Make a PUT request to update the item on the backend
@@ -17,7 +34,7 @@ const RedistributionTable = ({ data, onUpdate, onDelete }) => {
   const handleDelete = async (id) => {
     try {
       // Make a DELETE request to delete the item on the backend
-      await axios.delete(`http://localhost:8000/redistribution/${id}`);
+      await axios.delete(`http://localhost:8000/redistribution/:id`);
       onDelete(id);
     } catch (error) {
       // Handle error
@@ -47,7 +64,7 @@ const RedistributionTable = ({ data, onUpdate, onDelete }) => {
                 <td className="py-2 px-4">{item.request}</td>
                 <td className="py-2 px-4">{item.volunteer}</td>
                 <td className="py-2 px-4">{item.status}</td>
-                <td className="py-2 px-4">
+                <td className="button-card">
                   <button
                     className="bg-blue-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
                     onClick={() => handleUpdate(item)}
