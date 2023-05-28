@@ -86,15 +86,16 @@ const updateRedistributionRequest = async (req, res) => {
 //Delete a redistribution request
 const deleteRedistributionRequest = async (req, res) => {
   try {
-    const redistributionRequest = await Redistribution.findByIdAndDelete(
+    const redistribution = await Redistribution.findByIdAndDelete(
       req.params.id
     );
-    if (!redistributionRequest) {
+    if (!redistribution) {
       return res
         .status(404)
         .json({ error: 'Redistribution request not found' });
     }
-    res.status(200).json(redistributionRequest);
+
+    res.status(200).json({ message: 'Redistribution request deleted' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Server Error' });
