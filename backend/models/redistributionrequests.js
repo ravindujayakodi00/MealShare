@@ -7,17 +7,17 @@ const redistributionSchema = new mongoose.Schema(
       ref: 'Donor',
     },
     donation: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: true,
       ref: 'Donation',
     },
     volunteer: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: true,
       ref: 'Volunteer',
     },
     request: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: true,
       ref: 'Request',
     },

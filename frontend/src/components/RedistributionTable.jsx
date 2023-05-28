@@ -1,69 +1,86 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './redistributionTable.css';
+import './RedistributionTable.css';
+import { toast } from 'react-toastify';
+import { FormGroup, Modal } from 'react-bootstrap';
 
 const RedistributionTable = ({ onUpdate, onDelete }) => {
   const [data, setData] = useState([]);
+  const [show, setShow] = useState(false);
+  const [donor, setDonor] = useState('');
+  const [donation, setDonation] = useState('');
+  const [request, setRequest] = useState('');
+  const [volunteer, setVolunteer] = useState('');
+  const [status, setStatus] = useState('');
+  const [location, setLocation] = useState('');
 
   useEffect(() => {
     fetchData();
   }, []);
+
   const fetchData = async () => {
     try {
-      // Make a GET request to fetch the data
       const response = await axios.get('http://localhost:8000/redistribution/');
-      // Set the data
       setData(response.data);
     } catch (error) {
-      // Handle the error
       console.error(error);
     }
   };
 
   const handleUpdate = async (item) => {
+    const updatedItem = {
+      donor: item.donor,
+      donation: item.donation,
+      volunteer: item.volunteer,
+      request: item.request,
+      location: item.location,
+      status: item.status,
+    };
+
     try {
-      // Make a PUT request to update the item on the backend
-      await axios.put(`http://localhost:8000/redistribution/${item.id}`, item);
-      onUpdate(item);
+      const response = await axios.put(
+        `http://localhost:8000/redistribution/${item._id}`,
+        updatedItem
+      );
+      onUpdate(response.data);
+      toast.success('Details updated successfully!');
     } catch (error) {
-      // Handle error
       console.error('Error updating item:', error);
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = (id) => {
     try {
-      // Make a DELETE request to delete the item on the backend
-      await axios.delete(`http://localhost:8000/redistribution/:id`);
+      axios.delete(`http://localhost:8000/redistribution/${id}`);
       onDelete(id);
+      toast.success('Details deleted successfully!');
     } catch (error) {
-      // Handle error
       console.error('Error deleting item:', error);
     }
   };
 
   return (
     <div className="container">
-      <table className="w-full border-collapse">
+      <table className="distribute-table">
         <thead>
           <tr className="table-header">
-            <th className="py-2 px-4">Donor</th>
-            <th className="py-2 px-4">Donation Request</th>
-            <th className="py-2 px-4">Request</th>
-            <th className="py-2 px-4">Volunteer</th>
-            <th className="py-2 px-4">Status</th>
-            <th className="py-2 px-4">Actions</th>
+            <th className="thead">Donor</th>
+            <th className="thead">Donation</th>
+            <th className="thead">Request</th>
+            <th className="thead">Volunteer</th>
+            <th className="thead">Status</th>
+            <th className="thead">Actions</th>
           </tr>
         </thead>
         <tbody>
           {data && data.length > 0 ? (
             data.map((item) => (
-              <tr key={item.id} className="border-b">
-                <td className="py-2 px-4">{item.donor}</td>
-                <td className="py-2 px-4">{item.donation}</td>
-                <td className="py-2 px-4">{item.request}</td>
-                <td className="py-2 px-4">{item.volunteer}</td>
-                <td className="py-2 px-4">{item.status}</td>
+              <tr key={item._id} className="border-b">
+                <td className="trecord">{item.donor}</td>
+                <td className="trecord">{item.donation}</td>
+                <td className="trecord">{item.request}</td>
+                <td className="trecord">{item.volunteer}</td>
+                <td className="trecord">{item.status}</td>
                 <td className="button-card">
                   <button
                     className="bg-blue-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
@@ -73,7 +90,7 @@ const RedistributionTable = ({ onUpdate, onDelete }) => {
                   </button>
                   <button
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={() => handleDelete(item.id)}
+                    onClick={() => handleDelete(item._id)}
                   >
                     Delete
                   </button>
@@ -91,6 +108,42 @@ const RedistributionTable = ({ onUpdate, onDelete }) => {
       </table>
     </div>
   );
+  <Modal show={show} onHide={handleClose}>
+    <Modal.Header closeButton>
+      <Modal.Title>Update Distribute Details</Modal.Title>
+    </Modal.Header>
+
+    <Modal.Body>
+      <div className="form-field">
+        <label htmlFor="status">Status</label>
+        <select
+          id="status"
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+          required
+        >
+          <option value="">Select Status</option>
+          <option value="pending">Pending</option>
+          <option value="in-progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+    </Modal.Body>
+
+    <Modal.Footer>
+      <Button variant="secondary" onClick={handleClose}>
+        Close
+      </Button>
+      <Button
+        variant="primary"
+        onClick={() => {
+          EditUser(EveItem);
+        }}
+      >
+        Update Status
+      </Button>
+    </Modal.Footer>
+  </Modal>;
 };
 
 export default RedistributionTable;

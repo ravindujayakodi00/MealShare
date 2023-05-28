@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './RedistributionForm.css';
+import { toast } from 'react-toastify';
 
 const RedistributionForm = ({ onFormSubmit }) => {
   const [donor, setDonor] = useState('');
@@ -32,6 +33,7 @@ const RedistributionForm = ({ onFormSubmit }) => {
 
       // Call the onFormSubmit function with the form data and the response from the server
       onFormSubmit(formData, response.data);
+      toast.success('Details submitted successfully!');
 
       // Reset form fields
       setDonor('');
