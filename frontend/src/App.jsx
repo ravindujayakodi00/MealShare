@@ -57,7 +57,7 @@ function App() {
           <Route path="/donors/business" element={<BusinessDetails />} />
           <Route path="/donors/selectitems" element={<SelectItems />} />
           <Route path="/admin/donor/:id" element={<UpdateForm />} />
-          <Route path="/community" element={<Community />} />
+          <Route path="/community" element={<Community />}  />
           <Route path="/update/:id" element={<UpdatePost />} />
           <Route path="*" element={<NotFound />} />
           {/* <Route
