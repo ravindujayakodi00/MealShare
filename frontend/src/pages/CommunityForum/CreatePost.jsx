@@ -11,9 +11,19 @@ import CircularProgress from "@mui/material/CircularProgress";
 const CreatePost = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [caption, setCaption] = useState("");
+  const [characterCount, setCharacterCount] = useState(0);
   const [isCreatingPost, setIsCreatingPost] = useState(false);
   const [postCreated, setPostCreated] = useState(false);
   const [open, setOpen] = React.useState(false);
+  const [error, setError] = useState("");
+
+
+  const handleCaptionChange = (e) => {
+    const input = e.target.value;
+    setCaption(input);
+    setCharacterCount(input.length); // Update character count
+    setError(""); // Clear any previous error
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -51,19 +61,19 @@ const CreatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsCreatingPost(true);
-  
+
     try {
       const storage = getStorage();
       const postImage = selectedFiles[0];
       const storageRef = ref(storage, `images/${postImage.name}`);
       const snapshot = await uploadBytes(storageRef, postImage);
       const postImageUrl = await getDownloadURL(snapshot.ref);
-  
+
       const requestBody = {
         postCaption: caption,
         postImageUrl: postImageUrl,
       };
-  
+
       const response = await fetch("http://localhost:8000/api/posts", {
         method: "POST",
         headers: {
@@ -71,12 +81,13 @@ const CreatePost = () => {
         },
         body: JSON.stringify(requestBody),
       });
-  
+
       if (response.ok) {
         setPostCreated(true);
         setSelectedFiles([]);
         setCaption("");
         console.log("Post created successfully!");
+        handleOpen();
         // refresh page
         window.location.reload();
       } else {
@@ -90,7 +101,7 @@ const CreatePost = () => {
       console.log("Post created successfully!");
     }
   };
-  
+
 
   return (
     <div className="createpost rounded-xl bg-slate-100  mx-60 py-4 px-4">
@@ -100,8 +111,16 @@ const CreatePost = () => {
           type="text"
           placeholder="Add Caption to Your Community Post"
           value={caption}
-          onChange={(e) => setCaption(e.target.value)}
+          onChange={handleCaptionChange} // Modify the onChange event handler
         />
+
+        <span className="text-gray-500 text-sm">{characterCount}/100</span>
+        {characterCount > 100 && (
+          <p className="text-red-500 text-sm">Caption exceeded the word limit</p>
+        )}
+        {error && (
+          <p className="text-red-500 text-sm">{error}</p>
+        )}
 
         <div className="flex justify-between">
           <div>
@@ -147,7 +166,6 @@ const CreatePost = () => {
           <div>
             <button
               className="mt-3 mr-4 bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded-full"
-              onClick={handleOpen}
             >
               POST
             </button>

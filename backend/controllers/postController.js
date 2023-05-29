@@ -3,6 +3,12 @@ const Post = require('../models/postModel');
 exports.createPost = async (req, res) => {
   try {
     const { postCaption, postImageUrl } = req.body;
+    
+    // Add validation for maximum character limit
+    if (postCaption.length > 100) {
+      return res.status(400).json({ error: 'Post caption exceeds the maximum character limit of 100' });
+    }
+
     const post = await Post.create({ postCaption, postImageUrl });
     res.status(201).json(post);
   } catch (error) {

@@ -115,7 +115,7 @@ const UpdatePost = ({ id }) => {
     <div className="updatepost text-center mx-60 mt-10">
       <h1 className="text-5xl font-bold">Update Post</h1>
       <form onSubmit={(e) => handlePostUpdate(e)}>
-        <div className="updateform rounded-lg">
+        <div className="updateform rounded-lg bg-white p-2 mt-6">
           <div>
             {postImageUrl && (
               <img

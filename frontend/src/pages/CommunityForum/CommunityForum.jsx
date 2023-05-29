@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CreatePost from "./CreatePost";
 import Post from "./Post";
+import Navbar from "../../components/navBar";
 
 const Community = () => {
   const [posts, setPosts] = useState([]);
@@ -13,8 +14,9 @@ const Community = () => {
   }, []);
 
   return (
-    <div className="community mt-2">
-      <CreatePost />
+    <div className="community mt-2 p-5">
+      <Navbar />
+      <CreatePost className="mt-10"/>
       {[...posts].reverse().map((post) => (
         <Post key={post._id} postId={post._id} post={post} />
       ))}
