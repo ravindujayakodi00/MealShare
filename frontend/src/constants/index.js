@@ -2,25 +2,30 @@ export const navLinks = [
   {
     id: "home",
     title: "Home",
+    path: "/"
   },
   {
     id: "about",
     title: "About",
+    path: "/about"
   },
   {
     id: "community",
     title: "Community",
+    path: "/community"
   },
   {
     id: "education",
     title: "Education",
-    path: "/Education",
+    path: "/education"
   },
   {
     id: "contact",
     title: "Contact",
+    path: "/contact"
   },
 ];
+
 
 export const commentsData = [
     {

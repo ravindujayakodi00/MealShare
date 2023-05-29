@@ -20,10 +20,11 @@ import Login from './pages/AuthPages/Login';
 import Signup from './pages/AuthPages/SignUp';
 import Community from './pages/CommunityForum/CommunityForum';
 import UpdatePost from './pages/CommunityForum/UpdatePost';
+import NotFound from './pages/404';
 
-import './index.css';
-import Redistribution from './pages/Redistribution';
-import RedistributionTable from './components/RedistributionTable';
+// import './index.css';
+// import Redistribution from './pages/Redistribution';
+// import RedistributionTable from './components/RedistributionTable';
 
 function App() {
   const { user } = useAuthContext();
@@ -58,14 +59,15 @@ function App() {
           <Route path="/admin/donor/:id" element={<UpdateForm />} />
           <Route path="/community" element={<Community />} />
           <Route path="/update/:id" element={<UpdatePost />} />
-          <Route
+          <Route path="*" element={<NotFound />} />
+          {/* <Route
             path="/Admin/distribute-management"
             element={<Redistribution />}
           />
           <Route
             path="/Admin/distribute-management/RedistributionTable"
             element={<RedistributionTable />}
-          />
+          /> */}
         </Routes>
       </div>
     </Router>
