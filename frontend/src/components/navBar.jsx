@@ -51,7 +51,7 @@ const Navbar = () => {
           </div>
         ) : (
           <>
-            <Link to="login" onClick={() => handleLogin()} className="mr-6">
+            <Link to="/login" onClick={() => handleLogin()} className="mr-6">
               Sign In
             </Link>
             <Link
