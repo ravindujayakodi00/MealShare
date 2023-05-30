@@ -89,7 +89,7 @@ const Post = ({ post }) => {
   };
 
   return (
-    <div className="post mt-4 rounded-xl bg-slate-100 mx-60">
+    <div className="post mt-4 rounded-xl bg-slate-100 mx-60 p-5">
       <div className="flex justify-between">
         <div className="flex">
           <div>

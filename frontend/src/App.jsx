@@ -48,7 +48,7 @@ function App() {
           <Route path="/Admin/*" element={<AdminPage />} />
           <Route
             path="/Education"
-            element={user ? <EducationPage /> : <Navigate to="/login" />}
+            element={!user ? <Login /> : < EducationPage />}
           />
           <Route path="/admin/donor" element={<DonorAdmin />} />
           <Route path="/admin/business" element={<BusinessDonorAdmin />} />
