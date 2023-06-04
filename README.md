@@ -2,7 +2,6 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>MealShare - Online Food Donation System</title>
 </head>
 <body>
   <h1>MealShare</h1>
